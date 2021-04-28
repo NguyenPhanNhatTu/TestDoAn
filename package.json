@@ -1,10 +1,16 @@
 {
-  "name": "UTE2.21-EC18B010-BE",
+  "name": "ute2.21-ec18b010-be",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon --inspect src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-console.log.log --copy-files",
+    "start:prod": "npm run build && node dist/src/index.js",
+    "dev": "nodemon --exec babel-node src/index.js",
+    "pm2": "yarn build && yarn pm2:start",
+    "pm2:start": "pm2 start ecosystem.config.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +24,12 @@
   },
   "homepage": "https://github.com/lvminh/UTE2.21-EC18B010-BE#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "babel-cli": "^6.26.0",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
